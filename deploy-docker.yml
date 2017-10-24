@@ -1,0 +1,9 @@
+---
+// define 'docker' as our action target
+- hosts: docker
+  remote_user: "{{remote_user}}"
+  become: yes
+  become_method: sudo
+  serial: 1
+  roles:
+  - role: docker     //define 'docker' role should be apply to hosts

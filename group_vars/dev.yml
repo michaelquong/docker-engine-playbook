@@ -1,0 +1,4 @@
+---
+  //main service user
+  remote_user: ansible
+  

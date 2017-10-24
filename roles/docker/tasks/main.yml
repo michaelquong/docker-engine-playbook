@@ -1,0 +1,30 @@
+---
+  // based on installation instructions on docs.docker.com
+  // https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce
+
+  // Install pre-reqs
+  - name: install docker pre-reqs
+    yum: pkg={{ item }} state=installed
+    with_items:
+      - yum-untils
+      - device-mapper-persistent-data
+      - lvm2
+  //add docker public repo
+  - name: add docker repo
+    yum_repository:
+      name: docker-ce
+      description: docker-ce public repo
+      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+      gpgkey: https://download.docker.com/linux/centos/gpg
+      gpgcheck: no
+      enabled: yes
+  // install docker-ce
+  - name: install docker
+    yum:
+      name: docker-ce
+      state: latest
+  // add user to docker group
+  - user:
+    name: {{ remote_user }}
+    groups: docker
+    append: yes
